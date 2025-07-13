@@ -1,0 +1,83 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node*next;
+};
+struct node*n1,*list=NULL,*ptr,*new_node,*middle_node,*last_node,*ptr1;
+void display(){
+    ptr=list;
+    while(ptr!=NULL){
+        printf("%d\t",ptr->data);
+        ptr=ptr->next;
+    }
+}
+void insert_begin(){
+    new_node=(struct node*)malloc(sizeof(struct node));
+    printf("\nEnter data for new node: ");
+    scanf("%d\t",&new_node->data);
+    new_node->next=NULL;
+    new_node->next=list;
+    list=new_node;
+}    
+void insert_last(){
+    last_node=(struct node*)malloc(sizeof(struct node));
+    printf("Enter data for last node: ");
+    scanf("%d\t",&last_node->data);
+    last_node->next=NULL;
+    ptr=list;
+    while(ptr->next!=NULL){
+        ptr=ptr->next;
+    }
+   ptr->next=last_node;
+}    
+void insert_middle(){
+    middle_node=(struct node*)malloc(sizeof(struct node));
+    printf("Enter data for middle node: ");
+    scanf("%d\t",&middle_node->data);
+    middle_node->next=NULL;
+    int value;
+    printf("Enter the value:");
+    scanf("%d\t",&value);
+    ptr=list;
+    ptr1=list->next;
+    while(ptr->data!=value){
+        ptr=ptr->next;
+        ptr1=ptr1->next;
+    }
+    ptr->next=middle_node;
+    middle_node->next=ptr1;
+}
+
+int main(){
+    int i,n;
+    printf("Enter the number of nodes: ");
+    scanf("%d",&n);
+    for(i=0;i<n;i++){
+        n1=(struct node*)malloc(sizeof(struct node));
+        printf("Enter data of the node: ");
+        scanf("%d",&n1->data);
+        n1->next=NULL;
+        if(list==NULL){
+            list=n1;
+        }
+        else{
+            ptr=list;
+            while(ptr->next!=NULL){
+                ptr=ptr->next;
+            }
+            ptr->next=n1;
+        }
+    }
+    display();
+    insert_begin();
+    printf("After inserting the new node at first: ");
+    display();
+    insert_middle();
+    printf("After inserting the new node at midddle: ");
+    display();
+    insert_last();
+    printf("After inserting the new node at last: ");
+    display();
+    return 0;
+}
